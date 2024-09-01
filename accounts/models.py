@@ -8,13 +8,13 @@ class Basemodel(models.Model):
     class Meta:
         abstract=True
 
-class User_data(AbstractUser,Basemodel):
-    role_choices=(
+class User_data(AbstractUser):
+    ROLE_CHOICES=(
         ('User','User'),
-        ('owner','owner'),
-        ('admin','admin')
+        ('Owner','Owner'),
+        ('Admin','Admin')
     )
-    user=models.CharField(max_length=15,choices=role_choices)
+    role=models.CharField(max_length=15,choices=ROLE_CHOICES)
     REQUIRED_FIELDS = []
 
     def __str__(self):

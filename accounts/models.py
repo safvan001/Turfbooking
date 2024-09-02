@@ -19,6 +19,10 @@ class User_data(AbstractUser,Basemodel):
     role=models.CharField(max_length=15,choices=ROLE_CHOICES)
     REQUIRED_FIELDS = []
 
+    def save(self):
+        self.set_password(self.password)
+        super().save()
+
     def __str__(self):
         return str(self.username)
     

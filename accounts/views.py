@@ -1,9 +1,33 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
+from rest_framework import status,generics
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
 from django.conf import settings
+from accounts.serializers import *
 import requests
+
+class UserRegistrationView(generics.ListCreateAPIView):
+    "This view handle User Registration"
+    queryset=User.objects.all()
+    serializer_class=UserSerializer
+
+class UserLoginView(APIView):
+    "This view handle User login"
+
+    def post(self,request):
+        serializers=UserLoginSerializer(data=request.data)
+        serializers.is_valid(raise_exception=True)
+        user=serializers.validated_data['user']
+
+        refresh=RefreshToken.for_user(user)
+        return Response({
+            'access':str(refresh.access_token),
+            'refrseh':str(refresh),
+            'message':'User authenticated Successfully'
+        },status=status.HTTP_200_OK)
+    
 
 class InitiateOtp(APIView):
     def get(self,request, *args, **kwargs):

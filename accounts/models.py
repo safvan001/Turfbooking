@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from common.models import BaseModel
 
 class User(AbstractUser,BaseModel):
+    username=None
     ROLE_CHOICES=(
         ('User','User'),
         ('Owner','Owner'),
@@ -10,15 +11,14 @@ class User(AbstractUser,BaseModel):
     )
     role = models.CharField(max_length=15,choices=ROLE_CHOICES)
     phone_number = models.BigIntegerField()
-    REQUIRED_FIELDS = []
+    email=models.EmailField(unique=True)
 
-    def save(self):
-        
-        self.set_password(self.password)
-        super().save()
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['username']
+
 
     def __str__(self):
-        return str(self.username)
+        return self.email
     
 
 

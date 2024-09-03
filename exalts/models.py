@@ -5,7 +5,7 @@ class Rate(models.Model):
     TYPES=(
         ('11s','11s'),
         ('7s','7s'),
-        ('5s','5s')
+        ('5s','5s'),
         ('Cricket','Cricket'),
         ('Tennis','Tennis'),
         ('Basketball','Basketball'),
@@ -22,7 +22,7 @@ class Rate(models.Model):
 
 
 class Turf(models.Model):
-    name=models.CharField()
+    name=models.CharField(max_length=50)
     logo=models.ImageField(upload_to='logo')
     turf_image_1=models.ImageField(upload_to='turfimages')
     turf_image_2=models.ImageField(upload_to='turfimages')

@@ -14,7 +14,7 @@ class User(AbstractUser,BaseModel):
     email=models.EmailField(unique=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username']
+    REQUIRED_FIELDS = ['phone_number','role','password']
 
 
     def __str__(self):
